@@ -2,12 +2,17 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Platform,KeyboardAvoidingView,TextInput,TouchableOpacity, Keyboard } from 'react-native';
 import Task from "./components/Task.js";
+
 export default function App() {
 
   const [task,setTask]=useState();
   const [tasksItems,setTasksItems]=useState([]);
+  const [Pomodoro, setPomodoro] = useState('pomodoro');
+
+ 
   
-  
+
+
   const handelAddTask =()=>{
     
     Keyboard.dismiss(); //  to remove focus on the keyboard after saving the task 
@@ -18,13 +23,42 @@ export default function App() {
   const ComplateTask=(index)=>{
     let copytasksItems =[...tasksItems];
     copytasksItems.splice(index,1)  //index and numbre of item deleted 
-    setTasksItems(copytasksItems)
+    setTasksItems(copytasksItems)//set the first array of tasks 
+  
   }
 
   return (
-    <View style={styles.container}>
+    <View style={(Pomodoro=='pomodoro')? styles.ThemePomodoro : styles.ThemeBreak}>
+
+
+         <View style={styles.pomodoroWrapper}>
+          <View style={styles.pomodoroHeader}>
+
+         <TouchableOpacity  onPress={() => setPomodoro('pomodoro')}>
+               <Text style={styles.pomodoroText}>Pomodoro</Text>
+                    </TouchableOpacity>
+         <TouchableOpacity  onPress={() => setPomodoro('Break')}>
+               <Text style={styles.pomodoroText}>Break</Text>
+                    </TouchableOpacity>
+
+          </View>
+   
+        
+          <View style={styles.pomodoroTimer}>
+
+         <Text style={styles.TimerText}>25:00</Text>
+
+         </View>
+         </View>
         <View style={styles.tasksWrapper}>
-            <Text style={styles.headerText}>To day's Tasks :</Text>
+            <Text style={styles.headerText}>Tasks :</Text>
+            <View
+                style={{
+                  margin:10,
+                  borderBottomColor: 'black',
+                  borderBottomWidth: StyleSheet.hairlineWidth,
+                }}
+              />
             <View style={styles.items}>
               {
 
@@ -69,22 +103,70 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+
+  ThemePomodoro:{
+    flexDirection: 'column',
+    backgroundColor: '#bc4749',
     flex: 1,
-    backgroundColor: '#E8EAED',
-  
+    padding: 20,
   },
-  tasksWrapper:{
-    paddingTop:80,
+  ThemeBreak: {
+    flexDirection: 'column',
+    backgroundColor: '#219ebc',
+    flex: 1,
+    padding: 20,
+  },
+  pomodoroWrapper:{
+    // flex:2,
+    marginTop:30,
+    backgroundColor: '#9b2226',
+    borderRadius:20,
+    borderColor:"#000814",
+    borderWidth:1,
+ 
+    
+  },
+  pomodoroHeader:{
+    flexDirection:"row", //create a row 
+    justifyContent:'space-around',
+  },
+
+  pomodoroText:{
+    color:"#FFFFFF",
+    fontWeight:'bold',
+    fontSize:20,
+ 
+ },
+ pomodoroTimer:{
+    color:"#FFFFFF",
+    fontWeight:'bold',
+    justifyContent:"center",
+    alignItems:"center",
+ },
+
+  TimerText:{
     paddingHorizontal:20,   
-  },
-  headerText:{
-    fontSize:24,
+    color:"#FFFFFF",
+    fontSize:100,
     fontWeight:'bold',
 
+
+  },
+ 
+  tasksWrapper:{
+    flex:2,
+    paddingTop:20,
+    paddingHorizontal:20,   
+    borderColor:"#C0C0C0",
+
+  },
+  headerText:{
+    fontSize:20,
+    fontWeight:'bold',
+    color:'#fff'
   },
   items:{
-    marginTop:30,
+    marginTop:10,
 
   },
   WriteTaskWrapper:{
@@ -112,9 +194,6 @@ const styles = StyleSheet.create({
     alignItems:"center",
     borderColor:"#C0C0C0",
     borderWidth:1,
-
-    
-
   },
   TextAdd:{},
 });
