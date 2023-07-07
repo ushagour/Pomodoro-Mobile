@@ -2,11 +2,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Platform,KeyboardAvoidingView,TextInput,TouchableOpacity, Keyboard } from 'react-native';
 import Task from "./components/Task.js";
+import CountDown from 'react-native-countdown-component';
 
 export default function App() {
 
   const [task,setTask]=useState();
   const [tasksItems,setTasksItems]=useState([]);
+
   const [Pomodoro, setPomodoro] = useState('pomodoro');
 
  
@@ -46,7 +48,22 @@ export default function App() {
         
           <View style={styles.pomodoroTimer}>
 
-         <Text style={styles.TimerText}>25:00</Text>
+        
+         <CountDown
+         
+        until={25}
+        // until={2}
+        size={60}
+        onFinish={() => setPomodoro('Break')}
+        digitStyle={null}
+        digitTxtStyle={{color: '#fff'}}
+        timeToShow={['M', 'S']}
+        timeLabels={{m: null, s: null}}
+        showSeparator
+        separatorStyle={{color: '#fff'}}
+
+
+      />
 
          </View>
          </View>
@@ -127,6 +144,7 @@ const styles = StyleSheet.create({
     
   },
   pomodoroHeader:{
+    marginTop:20,
     flexDirection:"row", //create a row 
     justifyContent:'space-around',
   },

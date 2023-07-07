@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet,TouchableOpacity} from 'react-native';
+
 const Task = (props) => {
 return (
 <View style={styles.item}>
@@ -7,7 +8,7 @@ return (
             <TouchableOpacity style={styles.square}></TouchableOpacity>
             <Text style={styles.itemText}>{props.title}</Text>
         </View>
-        
+
         <View style={styles.circular}></View>
 </View>
 )}
@@ -30,10 +31,12 @@ const styles = StyleSheet.create({
     square:{
         width:24,
         height:24,
-        backgroundColor:"#55BCF6",
+        backgroundColor:"#8a817c",
         opacity:0.4,
-        borderRadius: 5,
+        borderRadius: 10,
         marginRight:15,
+        borderColor: "#0a0908",
+        borderWidth: 2,
 
     }
     ,itemText:{
