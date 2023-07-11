@@ -29,6 +29,7 @@ export default function App() {
   
   }
 
+
   return (
     <View style={(Pomodoro=='pomodoro')? styles.ThemePomodoro : styles.ThemeBreak}>
 
@@ -87,12 +88,11 @@ export default function App() {
                  tasksItems.map((item,index)=>{
                   
                   return(
-                    <TouchableOpacity key={index} onPress={()=>ComplateTask(index)}>
+   
                       
                       
-                      <Task  title={item}/>
+                      <Task key={index}  title={item}/>
 
-                    </TouchableOpacity>
     
     
                   )

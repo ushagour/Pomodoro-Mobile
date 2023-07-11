@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet,TouchableOpacity} from 'react-native';
 
 const Task = (props) => {
+    const [state, setActive] = useState(false);
+
+
+    const tooggleFocus=(state)=>{
+
+        if (state==true) {
+          setActive(false);
+          
+        } else {
+          setActive(true);
+          
+        }
+        
+      }
+
+
 return (
-<View style={styles.item}>
+    <TouchableOpacity    onPress={()=>tooggleFocus(state)}>
+
+<View  style={[styles.item, state? styles.active :"" ]}>{/* adding more styles to an elemens and adding  if else check for state varible   */}
         <View style={styles.itemLeft}>
             <TouchableOpacity style={styles.square}></TouchableOpacity>
             <Text style={styles.itemText}>{props.title}</Text>
@@ -11,6 +29,8 @@ return (
 
         <View style={styles.circular}></View>
 </View>
+</TouchableOpacity>
+
 )}
 const styles = StyleSheet.create({
     item: {
@@ -21,6 +41,12 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"space-between",
         marginBottom:20,
+      
+
+
+    },
+    active:{
+        borderColor: '#000814',borderWidth:2
     },
     itemLeft:{
         flexDirection:"row",
