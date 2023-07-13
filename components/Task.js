@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet,TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Task = (props) => {
     const [state, setActive] = useState(false);
+    const [complatedTasks,setcomplatedTasks]=useState([]);
+    const myIcon = <Icon name="check" size={30} color="#000000" />;
 
 
     const tooggleFocus=(state)=>{
@@ -12,18 +15,32 @@ const Task = (props) => {
           
         } else {
           setActive(true);
-          
+
         }
         
       }
 
 
+      const ComplateTask=(id)=>{
+        // let copytasksItems =[...complatedTasks];
+    
+        complatedTasks.push(id)  //index and numbre of item deleted 
+        // setcomplatedTasks(copytasksItems)
+        console.log(complatedTasks);
+      }
+
+
+
+     
+
 return (
-    <TouchableOpacity    onPress={()=>tooggleFocus(state)}>
+    <TouchableOpacity    onPress={()=>tooggleFocus(state,props.id)}>
 
 <View  style={[styles.item, state? styles.active :"" ]}>{/* adding more styles to an elemens and adding  if else check for state varible   */}
         <View style={styles.itemLeft}>
-            <TouchableOpacity style={styles.square}></TouchableOpacity>
+            <TouchableOpacity onPress={()=>ComplateTask(props.id)} style={styles.square}>
+                <View  style={styles.squareitem}>{myIcon}</View>
+                </TouchableOpacity>
             <Text style={styles.itemText}>{props.title}</Text>
         </View>
 
@@ -55,15 +72,17 @@ const styles = StyleSheet.create({
     }
     ,
     square:{
-        width:24,
-        height:24,
+        width:30,
+        height:30,
         backgroundColor:"#8a817c",
         opacity:0.4,
-        borderRadius: 10,
+        borderRadius: 20,
         marginRight:15,
         borderColor: "#0a0908",
-        borderWidth: 2,
+        // borderWidth: 2,
 
+    },squareitem:{
+        // alignItems:"center",
     }
     ,itemText:{
         maxWidth:"88%",//for dening the text to be to long and toutch the cercle 

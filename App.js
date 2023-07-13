@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList, Platform,KeyboardAvoidingView,TextInput,TouchableOpacity, Keyboard } from 'react-native';
+import { StyleSheet,Pressable , Text, View, FlatList, Platform,KeyboardAvoidingView,TextInput,TouchableOpacity, Keyboard,Button, Alert } from 'react-native';
 import Task from "./components/Task.js";
 import CountDown from 'react-native-countdown-component';
 
@@ -16,18 +16,21 @@ export default function App() {
 
 
   const handelAddTask =()=>{
+    if (task == "") {
+      Alert.alert("Oops", 'Input is empty', [
+        {
+        text: 'Ok'
+        }])
+      return;
+    }
+      Keyboard.dismiss(); //  to remove focus on the keyboard after saving the task 
+      setTasksItems([...tasksItems,task])
+      setTask(null)
     
-    Keyboard.dismiss(); //  to remove focus on the keyboard after saving the task 
-    setTasksItems([...tasksItems,task])
-    setTask(null)
+
   }
   
-  const ComplateTask=(index)=>{
-    let copytasksItems =[...tasksItems];
-    copytasksItems.splice(index,1)  //index and numbre of item deleted 
-    setTasksItems(copytasksItems)//set the first array of tasks 
-  
-  }
+ 
 
 
   return (
@@ -54,6 +57,7 @@ export default function App() {
          
         until={25}
         // until={2}
+        onPress={this.sendAgain} //default null
         size={60}
         onFinish={() => setPomodoro('Break')}
         digitStyle={null}
@@ -67,9 +71,14 @@ export default function App() {
       />
 
          </View>
+         <View>
+      <Pressable style={styles.buttonStart} onPress={() => Alert.alert('Button with adjusted color pressed')}>
+      <Text style={styles.text}>Start</Text>
+    </Pressable>
+         </View>
          </View>
         <View style={styles.tasksWrapper}>
-            <Text style={styles.headerText}>Tasks :</Text>
+            <Text id="title" style={styles.headerText}>Tasks :</Text>
             <View
                 style={{
                   margin:10,
@@ -91,7 +100,7 @@ export default function App() {
    
                       
                       
-                      <Task key={index}  title={item}/>
+                      <Task key={index} id={index} title={item}/>//propriety key cant be used in the componenets class create uour own prop like "id" 
 
     
     
@@ -214,4 +223,20 @@ const styles = StyleSheet.create({
     borderWidth:1,
   },
   TextAdd:{},
+  buttonStart: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 10,
+    margin:12,
+    elevation: 3,
+    backgroundColor:"#fff",
+  }, text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'black',
+  }
 });
