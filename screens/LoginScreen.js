@@ -1,16 +1,63 @@
 import React,{useState} from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native'
+import app from "../firebase/config";
+import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
+import { signInWithEmailAndPassword, getAuth,createUserWithEmailAndPassword  } from "firebase/auth";
 
 
 const LoginScreen = () => {
-    
+    const auth = getAuth(app);
+    const firestore = getFirestore(app);
     const [Email,SetEmail]=useState('');
     const [Password,SetPassword]=useState('');
 
 
-    const handleSigneup =(email, password)=>{
-    console.log(email, password);
+    const handleSigneup = async () => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(
+              auth,
+              Email,
+              Password
+              );    
+              console.log("ali");
+        }catch (error) {
+            // Handle login error
+        if (error.code === "auth/too-many-requests") {
+              alert("too many requests try later !");
+            }
+            setLoading(false);
+            alert(error);
+          }
     }
+
+
+    const handelSingneIn= async ()=>{
+        // setLoading(true);
+        try {
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            Email,
+            Password
+          );
+          console.log("ali");
+
+        //   setLoading(false);
+        } catch (error) {
+          // Handle login error
+          if (error.code === "auth/user-not-found") {
+            alert("user not found !");
+            // setLoginFailed(true);
+          }
+          if (error.code === "auth/wrong-password") {
+            alert("wrong password !");
+            // setLoginFailed(true);
+          }
+          if (error.code === "auth/too-many-requests") {
+            alert("too many requests try later !");
+          }
+        //   setLoading(false);
+        }
+      }
   return (
     <KeyboardAvoidingView
     style={styles.container}
@@ -45,9 +92,7 @@ const LoginScreen = () => {
 
             <TouchableOpacity
             
-            onPress={()=>{
-                console.log(Email+' '+Password);
-            }}
+            onPress={handelSingneIn}
             style={styles.button}
             
             >
@@ -55,7 +100,7 @@ const LoginScreen = () => {
             </TouchableOpacity>
             <TouchableOpacity
             
-            onPress={handleSigneup(Email,Password)}
+            onPress={handleSigneup}
             style={[styles.button,styles.buttonOutLine]} //to give the component more than 1 style 
             
             >
