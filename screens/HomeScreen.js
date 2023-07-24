@@ -1,8 +1,11 @@
 
 import React, { useState } from 'react';
-import { StyleSheet,Pressable , Text, View, FlatList, Platform,KeyboardAvoidingView,TextInput,TouchableOpacity, Keyboard,Button, Alert } from 'react-native';
+import { StyleSheet,Pressable , Text, View, FlatList, Platform,KeyboardAvoidingView,TextInput,TouchableOpacity, Keyboard,Button, Alert,SafeAreaView } from 'react-native';
 import Task from "../components/Task.js";
 import CountDown from 'react-native-countdown-component';
+import app from "../firebase/config";
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigation } from '@react-navigation/core';
 
 
 
@@ -11,9 +14,23 @@ const HomeScreen = () => {
   const [tasksItems,setTasksItems]=useState([]);
 
   const [Pomodoro, setPomodoro] = useState('pomodoro');
+  const navigation =useNavigation();
 
  
-  
+  const auth = getAuth(app);
+
+
+  const handelSingeOut=()=>{
+    signOut(auth).then(() => {
+      navigation.replace("Login")
+      
+      
+    }).catch((error) => {
+      // An error happened.
+    });
+    
+
+  }
 
 
   const handelAddTask =()=>{
@@ -31,7 +48,16 @@ const HomeScreen = () => {
 
   }
   return (
+ 
+
+
     <View style={(Pomodoro=='pomodoro')? styles.ThemePomodoro : styles.ThemeBreak}>
+        <SafeAreaView style={styles.authWrapper}>
+        <Text>Email: {auth.currentUser?.email}</Text>
+          <TouchableOpacity onPress={handelSingeOut} style={styles.button}>
+          <Text style={styles.buttonText}>Sign out</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
 
 
          <View style={styles.pomodoroWrapper}>
@@ -49,7 +75,7 @@ const HomeScreen = () => {
         
           <View style={styles.pomodoroTimer}>
 
-        
+{/*         
          <CountDown
          
         until={25}
@@ -65,7 +91,7 @@ const HomeScreen = () => {
         separatorStyle={{color: '#fff'}}
 
 
-      />
+      /> */}
 
          </View>
          <View>
@@ -238,5 +264,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'black',
+  },authWrapper:{
+    flexDirection:"row",
+    justifyContent:'space-around',
+    alignItems: 'center',
+
+
+
   }
+
 });

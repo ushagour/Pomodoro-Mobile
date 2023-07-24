@@ -1,8 +1,9 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native'
 import app from "../firebase/config";
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword, getAuth,createUserWithEmailAndPassword  } from "firebase/auth";
+import { useNavigation } from '@react-navigation/core';
 
 
 const LoginScreen = () => {
@@ -11,6 +12,18 @@ const LoginScreen = () => {
     const [Email,SetEmail]=useState('');
     const [Password,SetPassword]=useState('');
 
+    const navigation =useNavigation();
+
+    useEffect(()=>{
+      const unsubscribe = auth.onAuthStateChanged(user =>{
+
+        if(user){
+          navigation.replace("Home")
+        }
+      })
+return unsubscribe;
+
+    },[]);
 
     const handleSigneup = async () => {
         try {
@@ -19,6 +32,7 @@ const LoginScreen = () => {
               Email,
               Password
               );    
+              const user = userCredential.user;
               console.log("ali");
         }catch (error) {
             // Handle login error
