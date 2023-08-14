@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { StyleSheet,Pressable , Text, View, FlatList, Platform,KeyboardAvoidingView,TextInput,TouchableOpacity, Keyboard,Button, Alert,SafeAreaView } from 'react-native';
+import { StyleSheet,Pressable , Text, View,ScrollView,
+   FlatList, Platform,KeyboardAvoidingView,TextInput,TouchableOpacity, Keyboard,Button, Alert,SafeAreaView } from 'react-native';
 import Task from "../components/Task.js";
 import CountDown from 'react-native-countdown-component';
 import app from "../firebase/config";
@@ -8,10 +9,10 @@ import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/core';
 
 
-
 const HomeScreen = () => {
   const [task,setTask]=useState();
   const [tasksItems,setTasksItems]=useState([]);
+  const [refreshing,setrefreshing]=useState(false);
 
   const [Pomodoro, setPomodoro] = useState('pomodoro');
   const navigation =useNavigation();
@@ -27,6 +28,7 @@ const HomeScreen = () => {
       
     }).catch((error) => {
       // An error happened.
+    alert(error)
     });
     
 
@@ -47,13 +49,29 @@ const HomeScreen = () => {
     
 
   }
+ 
+ const ComplateTask = (index) => {
+
+    let itemsCopy = [];
+    tasksItems.map((task)=>{
+
+      itemsCopy.push(task)
+
+    })
+
+
+    console.log(`item ${itemsCopy}`)//todo learn to use this syntax 
+
+  }
+
+
   return (
  
 
 
     <View style={(Pomodoro=='pomodoro')? styles.ThemePomodoro : styles.ThemeBreak}>
         <SafeAreaView style={styles.authWrapper}>
-        <Text>Email: {auth.currentUser?.email}</Text>
+        <Text style={styles.headerText}>Email: {auth.currentUser?.email}</Text>
           <TouchableOpacity onPress={handelSingeOut} style={styles.button}>
           <Text style={styles.buttonText}>Sign out</Text>
           </TouchableOpacity>
@@ -110,6 +128,9 @@ const HomeScreen = () => {
                 }}
               />
             <View style={styles.items}>
+              {/* <FlatList refreshing={refreshing} onRefresh={()=>{alert("ali")}}> */}
+
+            <SafeAreaView  style={styles.scrollView}>
               {
 
                 /* when you need to use a js dode you have to write it on {}
@@ -117,21 +138,33 @@ const HomeScreen = () => {
 
                                 return use () for multy line 
                 */
-                 tasksItems.map((item,index)=>{
+
+                                <FlatList
+                                data={tasksItems}
+                                renderItem={({item})=> <Task  id={1}  onPress={()=>ComplateTask(1)}   title={item}/>}
+                                keyExtractor={item => item.id}
+                              />
+
+
+
+                //  .map((item,index)=>{
                   
-                  return(
+                //   return(
    
                       
                       
-                      <Task key={index} id={index} title={item}/>//propriety key cant be used in the componenets class create uour own prop like "id" 
+                //      //propriety key cant be used in the componenets class create uour own prop like "id" 
 
     
     
-                  )
-                })
+                //   )
+                // })
 
               }
-           
+              
+                </SafeAreaView>
+                {/* </FlatList> */}
+
             </View>
         </View>
 
@@ -209,8 +242,10 @@ const styles = StyleSheet.create({
   tasksWrapper:{
     flex:2,
     paddingTop:20,
-    paddingHorizontal:20,   
+    paddingHorizontal:20,  
     borderColor:"#C0C0C0",
+    // width: 100,
+    height: 80,
 
   },
   headerText:{
