@@ -71,10 +71,16 @@ const HomeScreen = () => {
 
     <View style={(Pomodoro=='pomodoro')? styles.ThemePomodoro : styles.ThemeBreak}>
         <SafeAreaView style={styles.authWrapper}>
-        <Text style={styles.headerText}>Email: {auth.currentUser?.email}</Text>
+        {/* <Text style={styles.headerText}>Email: {auth.currentUser?.email}</Text> */}
           <TouchableOpacity onPress={handelSingeOut} style={styles.button}>
-          <Text style={styles.buttonText}>Sign out</Text>
+          <Text style={styles.buttonText}>logout</Text>
+        
           </TouchableOpacity>
+          <TouchableOpacity  onPress={() => navigation.navigate('ProfileScreen')} style={styles.buttonProfile}>
+         <Text style={styles.buttonText}>Profile</Text>
+          </TouchableOpacity>
+         
+          
         </SafeAreaView>
 
 
@@ -113,7 +119,7 @@ const HomeScreen = () => {
 
          </View>
          <View>
-      <Pressable style={styles.buttonStart} onPress={() => Alert.alert('Button with adjusted color pressed')}>
+      <Pressable style={styles.buttonStart} onPress={() => Alert.alert('START TIMER BUTTON ')}>
       <Text style={styles.text}>Start</Text>
     </Pressable>
          </View>
@@ -133,7 +139,7 @@ const HomeScreen = () => {
             <SafeAreaView  style={styles.scrollView}>
               {
 
-                /* when you need to use a js dode you have to write it on {}
+                /* when you need to use a js code you have to write it on {}
                                 array map to ititate on the array items
 
                                 return use () for multy line 
@@ -143,6 +149,8 @@ const HomeScreen = () => {
                                 data={tasksItems}
                                 renderItem={({item})=> <Task  id={1}  onPress={()=>ComplateTask(1)}   title={item}/>}
                                 keyExtractor={item => item.id}
+                                refreshing={refreshing}
+                                onRefresh={()=>{alert('refreshing')}}
                               />
 
 
@@ -303,9 +311,38 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     justifyContent:'space-around',
     alignItems: 'center',
+  },buttonProfile:{
+    alignItems: 'flex-end',
+    backgroundColor:"#fff",
+    margin:12,
+    color:'black'
+  },button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'rgba(52, 52, 52, alpha)'
+  },
+  buttonProfile:{
+    borderColor: 'transparent',
+    borderWidth: 0,
+    borderRadius: 5,
+    paddingHorizontal: 28,
+    backgroundColor : "#9b2226",
+    color : "white",
+    textAlign : "center",
+    paddingVertical : 5,
+    marginBottom : 10
+  },
 
-
-
-  }
+  buttonText: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+  },
 
 });

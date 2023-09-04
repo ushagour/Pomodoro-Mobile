@@ -10,6 +10,7 @@ import Colors from "../constants/Colors";
 import Constants from "expo-constants";
 import { ListItem } from '@rneui/base';
 import Task from '../components/Task';
+import ListItemDeleteAction from '../components/ListItemDeleteAction';
 
 function MyTasks() {
     const navigation =useNavigation();
@@ -39,6 +40,10 @@ function MyTasks() {
               subTitle={auth.currentUser?.email}
               image={require("../assets/image/avatar/mypic.jpg")}
               onPress={()=>{alert("you tapped on the profile ")}}
+              renderRightActions={()=>{
+                <ListItemDeleteAction onPress={()=>{console.log(`deleting....`);}} />}
+              }
+
           />
         
    
@@ -53,16 +58,18 @@ function MyTasks() {
         data={Menu}
         // keyExtractor={item => item.title}
 
-        renderItem={({Menu}) => (
+        renderItem={({item}) => (
           <ListItems
                     /* listItems is a component */
                     title={item.title}
                     onPress={()=>{()=>HandelDeleteTasks(1)}}
-                    bottomDivider
-                    chevron
-                  />            
+                    renderRightActions={()=>{<ListItemDeleteAction onPress={()=>{console.log(`deleting${item}....`);}} />}}
+                         />
+                         
+                   
                                   )
-                 
+                      
+                                  
       }
 
       />

@@ -4,8 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Task = (props) => {
     const [state, setActive] = useState(false);
-    const [complatedTasks,setcomplatedTasks]=useState([]);
-    const myIcon = <Icon name="check" size={30} color="#000000" />;
+    const myIcon = <Icon name="email" size={30} color="#000000" />;
 
 
     const tooggleFocus=(state)=>{
@@ -21,13 +20,7 @@ const Task = (props) => {
       }
 
 
-      const ComplateTask=(id)=>{
-        // let copytasksItems =[...complatedTasks];
-    
-        complatedTasks.push(id)  //index and numbre of item deleted 
-        // setcomplatedTasks(copytasksItems)
-        console.log(complatedTasks);
-      }
+ 
 
 
 
@@ -38,7 +31,7 @@ return (
 
 <View  style={[styles.item, state? styles.active :"" ]}>{/* adding more styles to an elemens and adding  if else check for state varible   */}
         <View style={styles.itemLeft}>
-            <TouchableOpacity onPress={()=>ComplateTask(props.id)} style={styles.square}>
+            <TouchableOpacity style={styles.square}>
                 <View  style={styles.squareitem}>{myIcon}</View>
                 </TouchableOpacity>
             <Text style={styles.itemText}>{props.title}</Text>

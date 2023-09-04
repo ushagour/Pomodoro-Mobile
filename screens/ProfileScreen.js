@@ -1,43 +1,127 @@
 import React,{useEffect, useState} from 'react'
-import { KeyboardAvoidingView, StyleSheet, Button,Text, View,TextInput,TouchableOpacity } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet,FlatList,Button,Text, View,TextInput,TouchableOpacity } from 'react-native'
 import app from "../firebase/config";
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword, getAuth,createUserWithEmailAndPassword  } from "firebase/auth";
 import { useNavigation } from '@react-navigation/core';
 import MyIcon from '../components/MyIcon';
+import ListItems from '../components/ListItems';
+import Colors from "../constants/Colors";
+import Constants from "expo-constants";
+import { ListItem } from '@rneui/base';
 
 function ProfileScreen() {
     const navigation =useNavigation();
+    const auth = getAuth(app);
+
+
+
+    const Menu = [{
+
+            id:1,
+            title:"Personal Informations",
+            icon:{
+              name: "format-list-bulleted",
+              backgroundColor: Colors.primary
+            },
+            redirect:"PersonalInfo"
+            
+
+    },
+    {
+      id :2 ,title :"My Tasks" ,icon:{name:"format-list-bulleted",backgroundColor:Colors.secondary} ,redirect:"MyTasks"
+    }
+  ];
     return (
    <View style={styles.container}>
 
 
-          <MyIcon
+      {/* <Button title="Go back" onPress={() => navigation.goBack()} /> */}
+      <View style={styles.ProfileHeader}>
+
+          <ListItems
           
-          size={50}
-          name="email"
-          backgroundColor="red"
-          iconColor="white"
-  
+          // ImageComponent={ /*  DEFAULT value is the icon  but if you wanna use the image to ranfder your profile avatar you can use the image proprity*/
+          //   <MyIcon
+          
+            //   size={50}
+            //   name="email"
+            //   backgroundColor="red"
+            //   iconColor="white" 
+      
+            //   />
+            // }
+              title={auth.currentUser?.id}
+              subTitle={auth.currentUser?.email}
+              image={require("../assets/image/avatar/mypic.jpg")}
+              onPress={()=>{alert("you tapped on the profile ")}}
           />
-
-
-
+        
    
-   
-           <Button title="Go back" onPress={() => navigation.goBack()} />
+  </View>
+
+
+
+
+
+          <View style={styles.ProfileMenu}>
+          <FlatList
+        data={Menu}
+        keyExtractor={item => item.title}
+
+        renderItem={({item}) => (
+                    /* listItems is a component */
+                                    <ListItems
+                                    
+                                    onPress={() => navigation.navigate(item.redirect)} 
+                                    title={item.title}
+                                    ImageComponent={ 
+                                                      <MyIcon
+                                                
+                                                    name={item.icon.name}
+                                                    backgroundColor={item.icon.backgroundColor}
+                                                    />
+                                                  }
+                  
+                                    />
+                                  )
+                 
+      }
+
+      />
+
+
+
+
+          </View>
+          <ListItems
+        
+        title="Logout"
+        ImageComponent={ 
+                          <MyIcon
+                    
+                        name="logout"
+                        backgroundColor="#ffe66d"
+                        />
+                      }
+        
+        
+        />
   </View>
   )
 }
 const styles = StyleSheet.create({
 
     container:{
-      flexDirection: 'column',
-      backgroundColor: '#f08080',
       flex: 1,
-      padding: 20,
+      paddingTop: Constants.statusBarHeight, // to make a padding top on screen  
     },
-    
+  
+    ProfileMenu:{
+      flexDirection: "row",
+      padding: 15,
+      backgroundColor: Colors.light
+    }
 
 });
 export default ProfileScreen;
