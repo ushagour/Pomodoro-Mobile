@@ -1,11 +1,15 @@
 
 import React, { useState } from 'react';
 import { StyleSheet} from 'react-native';
+import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import PersonalInfo from './screens/PersonalInfo';
+import MyTasks from './screens/MyTasks';
 export default function App() {
 
   
@@ -17,10 +21,13 @@ export default function App() {
   return (
 
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen   name="Login" Options={{headerShown: false}}  component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
+              <Stack.Navigator  screenOptions={{headerShown: false}}>
+              <Stack.Screen   name="Login" Options={{headerShown: false}}  component={LoginScreen} />
+              <Stack.Screen name="Home"  component={HomeScreen} />
+              <Stack.Screen name="ProfileScreen"  component={ProfileScreen} />
+              <Stack.Screen name="PersonalInfo"  component={PersonalInfo} />
+              <Stack.Screen name="MyTasks"  component={MyTasks} />
+              </Stack.Navigator>
     </NavigationContainer>
 
 
