@@ -5,10 +5,9 @@ import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword, getAuth,createUserWithEmailAndPassword  } from "firebase/auth";
 import { useNavigation } from '@react-navigation/core';
 import MyIcon from '../components/MyIcon';
-import ListItems from '../components/ListItems';
+import ListItem from '../components/ListItem';
 import Colors from "../constants/Colors";
 import Constants from "expo-constants";
-import { ListItem } from '@rneui/base';
 
 function ProfileScreen() {
     const navigation =useNavigation();
@@ -39,7 +38,7 @@ function ProfileScreen() {
       {/* <Button title="Go back" onPress={() => navigation.goBack()} /> */}
       <View style={styles.ProfileHeader}>
 
-          <ListItems
+          <ListItem
           
           // ImageComponent={ /*  DEFAULT value is the icon  but if you wanna use the image to ranfder your profile avatar you can use the image proprity*/
           //   <MyIcon
@@ -71,7 +70,7 @@ function ProfileScreen() {
 
         renderItem={({item}) => (
                     /* listItems is a component */
-                                    <ListItems
+                                    <ListItem
                                     
                                     onPress={() => navigation.navigate(item.redirect)} 
                                     title={item.title}
@@ -94,7 +93,7 @@ function ProfileScreen() {
 
 
           </View>
-          <ListItems
+          <ListItem
         
         title="Logout"
         ImageComponent={ 

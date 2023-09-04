@@ -5,10 +5,9 @@ import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword, getAuth,createUserWithEmailAndPassword  } from "firebase/auth";
 import { useNavigation } from '@react-navigation/core';
 import MyIcon from '../components/MyIcon';
-import ListItems from '../components/ListItems';
+import ListItem from '../components/ListItem';
 import Colors from "../constants/Colors";
 import Constants from "expo-constants";
-import { ListItem } from '@rneui/base';
 import Task from '../components/Task';
 import ListItemDeleteAction from '../components/ListItemDeleteAction';
 
@@ -35,11 +34,11 @@ function MyTasks() {
       <Button title="Go back" onPress={() => navigation.goBack()} />
       <View style={styles.ProfileHeader}>
 
-          <ListItems
+          <ListItem
               title={auth.currentUser?.id}
               subTitle={auth.currentUser?.email}
               image={require("../assets/image/avatar/mypic.jpg")}
-              onPress={()=>{alert("you tapped on the profile ")}}
+              // onPress={()=>{alert("you tapped on the profile ")}}
               renderRightActions={()=>{
                 <ListItemDeleteAction onPress={()=>{console.log(`deleting....`);}} />}
               }
@@ -59,17 +58,18 @@ function MyTasks() {
         // keyExtractor={item => item.title}
 
         renderItem={({item}) => (
-          <ListItems
+          <ListItem
                     /* listItems is a component */
                     title={item.title}
-                    onPress={()=>{()=>HandelDeleteTasks(1)}}
+                    // onPress={()=>{}}
+                    // renderRightActions={()=>{}}
                     renderRightActions={()=>{<ListItemDeleteAction onPress={()=>{console.log(`deleting${item}....`);}} />}}
                          />
                          
                    
                                   )
                       
-                                  
+
       }
 
       />
