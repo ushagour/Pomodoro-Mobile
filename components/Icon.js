@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import {MaterialCommunityIcons} from '@expo/vector-icons';
-const MyIcon = ({size=40,name,backgroundColor="#000",iconColor="#111"}) => {
+const Icon = ({size=40,name,backgroundColor="#540b0e",iconColor="#000000"}) => {
 
     return(
 
@@ -16,4 +16,4 @@ const MyIcon = ({size=40,name,backgroundColor="#000",iconColor="#111"}) => {
   
 }
 
-export default MyIcon
+export default Icon;

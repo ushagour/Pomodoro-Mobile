@@ -4,7 +4,7 @@ import app from "../firebase/config";
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword, getAuth,createUserWithEmailAndPassword  } from "firebase/auth";
 import { useNavigation } from '@react-navigation/core';
-import MyIcon from '../components/MyIcon';
+import Icon from '../components/Icon';
 import ListItem from '../components/ListItem';
 import Colors from "../constants/Colors";
 import Constants from "expo-constants";
@@ -23,6 +23,10 @@ function MyTasks() {
       id:1,
       title:"this is  a simple damn task"
      
+    },{
+
+      id:2,
+      title:"another one "
     }
       
 
@@ -39,9 +43,7 @@ function MyTasks() {
               subTitle={auth.currentUser?.email}
               image={require("../assets/image/avatar/mypic.jpg")}
               // onPress={()=>{alert("you tapped on the profile ")}}
-              renderRightActions={()=>{
-                <ListItemDeleteAction onPress={()=>{console.log(`deleting....`);}} />}
-              }
+              renderRightActions={()=>{<ListItemDeleteAction onPress={()=>{console.log(`deleting....`);}} />}}
 
           />
         
@@ -61,8 +63,7 @@ function MyTasks() {
           <ListItem
                     /* listItems is a component */
                     title={item.title}
-                    // onPress={()=>{}}
-                    // renderRightActions={()=>{}}
+                    onPress={()=>{console.log(`deleting${item}....`);}}
                     renderRightActions={()=>{<ListItemDeleteAction onPress={()=>{console.log(`deleting${item}....`);}} />}}
                          />
                          

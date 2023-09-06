@@ -1,40 +1,30 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Swipeable } from 'react-native-gesture-handler';
+import React from "react";
+import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const ListItemDeleteAction = ({ onPress }) => {
+import colors from "../constants/Colors";
+
+function ListItemDeleteAction({ onPress }) {
   return (
-    <Swipeable renderRightActions={() => (
-      <TouchableOpacity onPress={onPress}>
-        <View
-          style={{
-            backgroundColor: 'red',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: 80,
-            height: '100%',
-          }}
-        >
-          <Text style={{ color: 'white', fontWeight: 'bold' }}>Delete</Text>
-        </View>
-      </TouchableOpacity>
-    )}>
-      {/* Render your list item here */}
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: 16,
-          backgroundColor: 'white',
-          borderBottomWidth: 1,
-          borderColor: '#ccc',
-        }}
-      >
-        <Text>List Item Content</Text>
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={styles.container}>
+        <MaterialCommunityIcons
+          name="trash-can"
+          size={35}
+          color={colors.white}
+        />
       </View>
-    </Swipeable>
+    </TouchableWithoutFeedback>
   );
-};
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.danger,
+    width: 70,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default ListItemDeleteAction;

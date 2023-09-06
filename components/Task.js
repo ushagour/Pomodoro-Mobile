@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet,TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from '../components/Icon';
 
 const Task = (props) => {
     const [state, setActive] = useState(false);
-    const myIcon = <Icon name="email" size={30} color="#000000" />;
+    const CheckIcon = <Icon name="check-bold" size={30} color="#000000" />;
 
 
     const tooggleFocus=(state)=>{
@@ -32,7 +32,7 @@ return (
 <View  style={[styles.item, state? styles.active :"" ]}>{/* adding more styles to an elemens and adding  if else check for state varible   */}
         <View style={styles.itemLeft}>
             <TouchableOpacity style={styles.square}>
-                <View  style={styles.squareitem}>{myIcon}</View>
+                <View  style={styles.squareitem}>{CheckIcon}</View>
                 </TouchableOpacity>
             <Text style={styles.itemText}>{props.title}</Text>
         </View>
@@ -68,14 +68,18 @@ const styles = StyleSheet.create({
         width:30,
         height:30,
         backgroundColor:"#8a817c",
-        opacity:0.4,
+        opacity:0.3,
         borderRadius: 20,
         marginRight:15,
         borderColor: "#0a0908",
+        
         // borderWidth: 2,
 
     },squareitem:{
         // alignItems:"center",
+        
+        
+
     }
     ,itemText:{
         maxWidth:"88%",//for dening the text to be to long and toutch the cercle 

@@ -4,7 +4,7 @@ import app from "../firebase/config";
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword, getAuth,createUserWithEmailAndPassword  } from "firebase/auth";
 import { useNavigation } from '@react-navigation/core';
-import MyIcon from '../components/MyIcon';
+import Icon from '../components/Icon';
 import ListItem from '../components/ListItem';
 import Colors from "../constants/Colors";
 import Constants from "expo-constants";
@@ -41,7 +41,7 @@ function ProfileScreen() {
           <ListItem
           
           // ImageComponent={ /*  DEFAULT value is the icon  but if you wanna use the image to ranfder your profile avatar you can use the image proprity*/
-          //   <MyIcon
+          //   <Icon
           
             //   size={50}
             //   name="email"
@@ -75,7 +75,7 @@ function ProfileScreen() {
                                     onPress={() => navigation.navigate(item.redirect)} 
                                     title={item.title}
                                     ImageComponent={ 
-                                                      <MyIcon
+                                                      <Icon
                                                 
                                                     name={item.icon.name}
                                                     backgroundColor={item.icon.backgroundColor}
@@ -97,7 +97,7 @@ function ProfileScreen() {
         
         title="Logout"
         ImageComponent={ 
-                          <MyIcon
+                          <Icon
                     
                         name="logout"
                         backgroundColor="#ffe66d"

@@ -4,11 +4,10 @@ import app from "../firebase/config";
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import { signInWithEmailAndPassword, getAuth,createUserWithEmailAndPassword  } from "firebase/auth";
 import { useNavigation } from '@react-navigation/core';
-import MyIcon from '../components/MyIcon';
-import ListItems from '../components/ListItems';
+import Icon from '../components/Icon';
 import Colors from "../constants/Colors";
 import Constants from "expo-constants";
-import { ListItem } from '@rneui/base';
+import ListItem from '../components/ListItem';
 import Task from '../components/Task';
 
 function PersonalInfo() {
