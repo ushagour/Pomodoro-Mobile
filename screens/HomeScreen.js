@@ -21,18 +21,7 @@ const HomeScreen = () => {
   const auth = getAuth(app);
 
 
-  const handelSingeOut=()=>{
-    signOut(auth).then(() => {
-      navigation.replace("Login")
-      
-      
-    }).catch((error) => {
-      // An error happened.
-    alert(error)
-    });
-    
 
-  }
 
 
   const handelAddTask =()=>{
@@ -72,10 +61,7 @@ const HomeScreen = () => {
     <View style={(Pomodoro=='pomodoro')? styles.ThemePomodoro : styles.ThemeBreak}>
         <SafeAreaView style={styles.authWrapper}>
         {/* <Text style={styles.headerText}>Email: {auth.currentUser?.email}</Text> */}
-          <TouchableOpacity onPress={handelSingeOut} style={styles.button}>
-          <Text style={styles.buttonText}>logout</Text>
-        
-          </TouchableOpacity>
+       
           <TouchableOpacity  onPress={() => navigation.navigate('ProfileScreen')} style={styles.buttonProfile}>
          <Text style={styles.buttonText}>Profile</Text>
           </TouchableOpacity>

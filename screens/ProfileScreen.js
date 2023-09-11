@@ -1,8 +1,9 @@
 import React,{useEffect, useState} from 'react'
 import { KeyboardAvoidingView, StyleSheet,FlatList,Button,Text, View,TextInput,TouchableOpacity } from 'react-native'
 import app from "../firebase/config";
+
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
-import { signInWithEmailAndPassword, getAuth,createUserWithEmailAndPassword  } from "firebase/auth";
+import { getAuth,signOut  } from "firebase/auth";
 import { useNavigation } from '@react-navigation/core';
 import Icon from '../components/Icon';
 import ListItem from '../components/ListItem';
@@ -13,7 +14,18 @@ function ProfileScreen() {
     const navigation =useNavigation();
     const auth = getAuth(app);
 
-
+    const handelSingeOut=()=>{
+      signOut(auth).then(() => {
+        navigation.replace("Login")
+        
+        
+      }).catch((error) => {
+        // An error happened.
+      alert(error)
+      });
+      
+  
+    }
 
     const Menu = [{
 
@@ -96,7 +108,8 @@ function ProfileScreen() {
           <ListItem
         
         title="Logout"
-        ImageComponent={ 
+        onPress={handelSingeOut}    
+            ImageComponent={ 
                           <Icon
                     
                         name="logout"

@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native'
 import app from "../firebase/config";
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
-import { signInWithEmailAndPassword, getAuth,createUserWithEmailAndPassword  } from "firebase/auth";
+import { signInWithEmailAndPassword, getAuth  } from "firebase/auth";
 import { useNavigation } from '@react-navigation/core';
 
 
@@ -25,24 +25,7 @@ return unsubscribe;
 
     },[]);
 
-    const handleSigneup = async () => {
-        try {
-            const userCredential = await createUserWithEmailAndPassword(
-              auth,
-              Email,
-              Password
-              );    
-              const user = userCredential.user;
-              console.log("ali");
-        }catch (error) {
-            // Handle login error
-        if (error.code === "auth/too-many-requests") {
-              alert("too many requests try later !");
-            }
-            setLoading(false);
-            alert(error);
-          }
-    }
+   
 
 
     const handelSingneIn= async ()=>{
@@ -77,7 +60,10 @@ return unsubscribe;
     style={styles.container}
     behavior='padding'
        >
+        <View style={styles.headerwrapper}>
+        <Text style={styles.headerTitle}>Login</Text>
 
+        </View>
 
  
         <View style={styles.Inputscontainer}> 
@@ -114,7 +100,7 @@ return unsubscribe;
             </TouchableOpacity>
             <TouchableOpacity
             
-            onPress={handleSigneup}
+            onPress={() => navigation.navigate('Registre')}       
             style={[styles.button,styles.buttonOutLine]} //to give the component more than 1 style 
             
             >
@@ -137,6 +123,11 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:"center",
         alignItems:"center"
+    },
+    headerwrapper:{},
+    headerTitle:{
+      fontSize: 33,
+      marginBottom: 16,
     },
     Inputscontainer:{
         width:'80%',
